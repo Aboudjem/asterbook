@@ -1,0 +1,15 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "/Users/adamboudj/asterbook/apps/web/logs/.b9df17337806653bd1694a22ac15860eea76856a-audit.json",
+    "files": [
+        {
+            "date": 1769982335754,
+            "name": "/Users/adamboudj/asterbook/apps/web/logs/mcp-puppeteer-2026-02-02.log",
+            "hash": "992b45304308d3d4745924fc7efab76f50632ebe4d027754e60f3ec7d7dc10e1"
+        }
+    ],
+    "hashType": "sha256"
+}

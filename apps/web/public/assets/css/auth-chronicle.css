@@ -1,0 +1,435 @@
+:root {
+  --ac-bg: radial-gradient(1200px 900px at 12% 15%, rgba(34, 211, 238, 0.14), transparent 58%),
+    radial-gradient(900px 650px at 82% 24%, rgba(122, 166, 255, 0.16), transparent 60%),
+    radial-gradient(900px 700px at 55% 88%, rgba(245, 158, 11, 0.10), transparent 60%),
+    radial-gradient(500px 420px at 20% 80%, rgba(168, 85, 247, 0.10), transparent 62%),
+    linear-gradient(180deg, #070A14, #0B1020);
+  --ac-text: rgba(245, 241, 232, 0.95);
+  --ac-muted: rgba(245, 241, 232, 0.72);
+  --ac-stroke: rgba(255, 255, 255, 0.10);
+  --ac-stroke-strong: rgba(255, 255, 255, 0.16);
+  --ac-card: rgba(255, 255, 255, 0.06);
+  --ac-card-strong: rgba(2, 6, 23, 0.42);
+  --ac-shadow: 0 28px 80px rgba(0, 0, 0, 0.60);
+  --ac-focus: 0 0 0 4px rgba(122, 166, 255, 0.16);
+  --ac-accent: #7aa6ff;
+  --ac-accent-2: #22d3ee;
+}
+
+body.auth-chronicle {
+  min-height: 100vh;
+  margin: 0;
+  background: var(--ac-bg);
+  color: var(--ac-text);
+  overflow-x: hidden;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+}
+
+.auth-chronicle h1,
+.auth-chronicle h2,
+.auth-chronicle h3 {
+  font-family: Fraunces, ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+}
+
+.auth-chronicle-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.auth-chronicle-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.09) 1px, transparent 1px);
+  background-size: 28px 28px;
+  background-position: 0 0;
+  opacity: 0.08;
+  mask-image: radial-gradient(circle at 50% 35%, rgba(0, 0, 0, 1), transparent 62%);
+}
+
+.auth-chronicle-bg::after {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  background: conic-gradient(from 220deg at 50% 30%, rgba(122, 166, 255, 0.24), rgba(34, 211, 238, 0.16), rgba(245, 158, 11, 0.10), rgba(168, 85, 247, 0.14), rgba(122, 166, 255, 0.24));
+  filter: blur(30px);
+  opacity: 0.20;
+}
+
+.ac-back {
+  position: fixed;
+  top: 18px;
+  left: 18px;
+  width: 48px;
+  height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: rgba(245, 241, 232, 0.92);
+  background: rgba(2, 6, 23, 0.35);
+  border: 1px solid var(--ac-stroke);
+  border-radius: 999px;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.45);
+  transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+  z-index: 20;
+}
+
+.ac-back:hover {
+  transform: translateY(-2px);
+  border-color: rgba(122, 166, 255, 0.35);
+  background: rgba(2, 6, 23, 0.55);
+}
+
+.ac-back:focus-visible {
+  outline: none;
+  box-shadow: var(--ac-focus), 0 14px 40px rgba(0, 0, 0, 0.45);
+}
+
+.ac-shell {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 84px 22px 60px;
+}
+
+.ac-book {
+  position: relative;
+  border-radius: 26px;
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  background: rgba(255, 255, 255, 0.04);
+  box-shadow: var(--ac-shadow);
+  overflow: hidden;
+}
+
+.ac-book::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: 26px;
+  padding: 1px;
+  background: linear-gradient(120deg, rgba(122, 166, 255, 0.55), rgba(34, 211, 238, 0.30), rgba(245, 158, 11, 0.18));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0.45;
+  pointer-events: none;
+}
+
+.ac-book::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(900px 420px at var(--mx, 50%) var(--my, 30%), rgba(255, 255, 255, 0.10), transparent 55%);
+  opacity: 0.85;
+  pointer-events: none;
+}
+
+.ac-book-grid {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+}
+
+.ac-page {
+  position: relative;
+  padding: 26px;
+  min-height: 520px;
+}
+
+.ac-page-left {
+  background: linear-gradient(180deg, rgba(2, 6, 23, 0.35), rgba(2, 6, 23, 0.55));
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.ac-page-right {
+  background: rgba(2, 6, 23, 0.28);
+}
+
+.ac-spine {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 2px;
+  transform: translateX(-1px);
+  background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.12), transparent);
+  opacity: 0.8;
+  pointer-events: none;
+}
+
+.ac-brand {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.ac-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ac-logo img {
+  height: 38px;
+  width: auto;
+  filter: drop-shadow(0 0 18px rgba(122, 166, 255, 0.25));
+}
+
+.ac-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(245, 241, 232, 0.90);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  font-size: 12px;
+  letter-spacing: 0.35px;
+}
+
+.ac-hero {
+  margin-top: 20px;
+}
+
+.ac-hero h1 {
+  margin: 0;
+  font-size: clamp(32px, 4vw, 46px);
+  line-height: 1.03;
+  letter-spacing: -0.04em;
+  font-weight: 800;
+}
+
+.ac-hero h1 span {
+  background: linear-gradient(90deg, var(--ac-accent-2), var(--ac-accent), rgba(245, 158, 11, 0.95));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.ac-hero p {
+  margin: 14px 0 0;
+  max-width: 60ch;
+  color: var(--ac-muted);
+  font-size: 15px;
+  line-height: 1.65;
+}
+
+.ac-map {
+  margin-top: 18px;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: radial-gradient(circle at 25% 35%, rgba(34, 211, 238, 0.14), transparent 55%),
+    radial-gradient(circle at 75% 30%, rgba(122, 166, 255, 0.12), transparent 55%),
+    radial-gradient(circle at 55% 78%, rgba(245, 158, 11, 0.10), transparent 60%),
+    rgba(2, 6, 23, 0.18);
+  overflow: hidden;
+  padding: 18px;
+}
+
+.ac-map-grid {
+  position: relative;
+  height: 220px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background-image:
+    radial-gradient(rgba(255, 255, 255, 0.10) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 18px 18px, 54px 54px, 54px 54px;
+  background-position: 0 0, 0 0, 0 0;
+}
+
+.ac-node {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(245, 241, 232, 0.92);
+  box-shadow: 0 0 0 6px rgba(255, 255, 255, 0.04), 0 0 20px rgba(122, 166, 255, 0.35);
+}
+
+.ac-node.is-accent {
+  background: var(--ac-accent-2);
+  box-shadow: 0 0 0 6px rgba(34, 211, 238, 0.10), 0 0 24px rgba(34, 211, 238, 0.35);
+}
+
+.ac-link {
+  position: absolute;
+  height: 2px;
+  background: linear-gradient(90deg, rgba(122, 166, 255, 0.0), rgba(122, 166, 255, 0.55), rgba(34, 211, 238, 0.0));
+  opacity: 0.85;
+  transform-origin: left center;
+}
+
+.ac-map-caption {
+  margin-top: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  color: rgba(245, 241, 232, 0.78);
+  font-size: 13px;
+}
+
+.ac-map-caption strong {
+  color: rgba(245, 241, 232, 0.95);
+  font-weight: 800;
+}
+
+.ac-card {
+  position: relative;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  background: rgba(255, 255, 255, 0.06);
+  padding: 20px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.ac-card h2 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.ac-card p {
+  margin: 10px 0 0;
+  color: var(--ac-muted);
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.ac-alert {
+  margin-top: 14px;
+  padding: 12px 12px;
+  border-radius: 14px;
+  border: 1px solid rgba(239, 68, 68, 0.25);
+  background: rgba(239, 68, 68, 0.10);
+  color: rgba(254, 202, 202, 0.95);
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.ac-form {
+  margin-top: 18px;
+}
+
+.ac-field {
+  margin-top: 12px;
+}
+
+.ac-label {
+  display: block;
+  margin: 0 0 8px;
+  font-size: 13px;
+  font-weight: 700;
+  color: rgba(245, 241, 232, 0.92);
+}
+
+.auth-chronicle .form-control {
+  background: rgba(2, 6, 23, 0.40) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  color: rgba(245, 241, 232, 0.95) !important;
+  border-radius: 14px;
+  padding: 14px 14px;
+  min-height: 48px;
+}
+
+.auth-chronicle .form-control:focus {
+  border-color: rgba(122, 166, 255, 0.55) !important;
+  box-shadow: var(--ac-focus) !important;
+}
+
+.ac-actions {
+  margin-top: 16px;
+  display: grid;
+  gap: 12px;
+}
+
+.auth-chronicle .btn-primary {
+  min-height: 48px;
+  border-radius: 14px;
+  font-weight: 800;
+  letter-spacing: 0.2px;
+  background: linear-gradient(135deg, rgba(34, 211, 238, 0.95), rgba(122, 166, 255, 0.95));
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 18px 44px rgba(34, 211, 238, 0.12);
+}
+
+.auth-chronicle .btn-primary:hover {
+  transform: translateY(-2px);
+}
+
+.ac-footer {
+  margin-top: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
+  color: rgba(245, 241, 232, 0.78);
+  font-size: 13px;
+}
+
+.ac-footer a {
+  color: rgba(245, 241, 232, 0.92);
+  text-decoration: none;
+  min-height: 48px;
+  display: inline-flex;
+  align-items: center;
+  padding: 0 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  background: rgba(2, 6, 23, 0.30);
+  transition: transform 180ms ease, border-color 180ms ease;
+}
+
+.ac-footer a:hover {
+  transform: translateY(-1px);
+  border-color: rgba(122, 166, 255, 0.30);
+}
+
+.ac-footer a:focus-visible {
+  outline: none;
+  box-shadow: var(--ac-focus);
+}
+
+@media (max-width: 1024px) {
+  .ac-shell {
+    padding: 74px 16px 44px;
+  }
+
+  .ac-book-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ac-page-left {
+    border-right: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .ac-spine {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .ac-page {
+    padding: 18px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .auth-chronicle .btn-primary:hover {
+    transform: none;
+  }
+}

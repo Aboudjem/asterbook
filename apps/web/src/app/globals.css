@@ -1,0 +1,487 @@
+/* ==========================================================================
+   ASTERBOOK DESIGN SYSTEM - GLOBALS.CSS
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. TAILWIND DIRECTIVES
+   -------------------------------------------------------------------------- */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* --------------------------------------------------------------------------
+   2. EXTERNAL CSS IMPORTS
+   -------------------------------------------------------------------------- */
+@import '/assets/css/glass-modern.css';
+@import '/assets/css/asterbook-animated-bg.css';
+
+/* --------------------------------------------------------------------------
+   3. FONT IMPORTS
+   -------------------------------------------------------------------------- */
+
+/* Google Fonts - Inter */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+/* Local Inter Variable Font */
+@font-face {
+  font-family: 'Inter var';
+  font-weight: 100 900;
+  font-display: swap;
+  font-style: normal;
+  font-named-instance: 'Regular';
+  src: url('/assets/fonts/inter/Inter-roman.var32a8.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Inter var';
+  font-weight: 100 900;
+  font-display: swap;
+  font-style: italic;
+  font-named-instance: 'Italic';
+  src: url('/assets/fonts/inter/Inter-italic.var32a8.woff2') format('woff2');
+}
+
+/* --------------------------------------------------------------------------
+   4. CSS CUSTOM PROPERTIES (DESIGN TOKENS)
+   -------------------------------------------------------------------------- */
+:root {
+  /* --- Aster Brand Colors --- */
+  --aster-cyan: #00f3ff;
+  --aster-blue: #3b82f6;
+  --aster-gold: #f59e0b;
+  --aster-deep: #020617;
+  --aster-purple: #a855f7;
+
+  /* --- Glass Variables --- */
+  --glass-bg-base: rgba(15, 23, 42, 0.60);
+  --glass-bg-card: rgba(30, 41, 59, 0.45);
+  --glass-bg-hover: rgba(51, 65, 85, 0.50);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-border-light: rgba(255, 255, 255, 0.15);
+  --glass-blur: 12px;
+  --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+
+  /* --- Transitions --- */
+  --glass-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* --- Text Colors --- */
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
+
+  /* --- Background Animated BG --- */
+  --ab-black: #05060a;
+}
+
+/* --------------------------------------------------------------------------
+   5. BASE STYLES
+   -------------------------------------------------------------------------- */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    font-family: 'Inter var', 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    color: var(--text-primary);
+    min-height: 100vh;
+
+    /* Deep Space Background with Radial Gradients */
+    background:
+      radial-gradient(1200px 900px at 12% 15%, rgba(34, 211, 238, 0.10), transparent 58%),
+      radial-gradient(900px 650px at 82% 24%, rgba(122, 166, 255, 0.12), transparent 60%),
+      radial-gradient(900px 700px at 55% 88%, rgba(245, 158, 11, 0.08), transparent 60%),
+      linear-gradient(180deg, #070A14, #0B1020);
+    background-attachment: fixed;
+  }
+
+  /* Heading defaults */
+  h1, h2, h3, h4, h5, h6,
+  .h1, .h2, .h3, .h4, .h5, .h6 {
+    color: var(--text-primary);
+    font-weight: 600;
+  }
+
+  /* Link defaults */
+  a {
+    color: var(--aster-cyan);
+    text-decoration: none;
+    transition: var(--glass-transition);
+  }
+
+  a:hover {
+    color: var(--aster-blue);
+  }
+
+  /* Selection */
+  ::selection {
+    background: rgba(0, 243, 255, 0.3);
+    color: var(--text-primary);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   6. GLASS UTILITY COMPONENTS
+   -------------------------------------------------------------------------- */
+@layer components {
+  /* Glass Panel - Base container */
+  .glass-panel {
+    background: var(--glass-bg-card);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
+    border-radius: 16px;
+    transition: var(--glass-transition);
+  }
+
+  .glass-panel:hover {
+    border-color: var(--glass-border-light);
+    background: var(--glass-bg-hover);
+  }
+
+  /* Glass Card - Elevated card component */
+  .glass-card {
+    background: var(--glass-bg-card);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    border-radius: 16px;
+    transition: var(--glass-transition);
+    overflow: hidden;
+  }
+
+  .glass-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.1);
+    border-color: var(--glass-border-light);
+    background: var(--glass-bg-hover);
+  }
+
+  /* Button Cyber - Gradient primary button */
+  .btn-cyber {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+    font-size: 0.875rem;
+    letter-spacing: 0.5px;
+    color: var(--aster-deep);
+    background: linear-gradient(135deg, var(--aster-cyan) 0%, var(--aster-blue) 100%);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: var(--glass-transition);
+    box-shadow: 0 4px 15px rgba(0, 243, 255, 0.3);
+    backdrop-filter: blur(4px);
+  }
+
+  .btn-cyber:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 243, 255, 0.5);
+  }
+
+  .btn-cyber:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 10px rgba(0, 243, 255, 0.3);
+  }
+
+  .btn-cyber:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  /* Button Aster - Gold/premium variant */
+  .btn-aster {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+    font-size: 0.875rem;
+    letter-spacing: 0.5px;
+    color: var(--aster-deep);
+    background: linear-gradient(135deg, var(--aster-gold) 0%, #fbbf24 50%, var(--aster-gold) 100%);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: var(--glass-transition);
+    box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
+    backdrop-filter: blur(4px);
+  }
+
+  .btn-aster:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(245, 158, 11, 0.5);
+  }
+
+  .btn-aster:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 10px rgba(245, 158, 11, 0.3);
+  }
+
+  .btn-aster:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  /* Ghost Button - Transparent with border */
+  .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 1.5rem;
+    font-weight: 500;
+    font-size: 0.875rem;
+    color: var(--text-primary);
+    background: transparent;
+    border: 1px solid var(--glass-border-light);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: var(--glass-transition);
+    backdrop-filter: blur(4px);
+  }
+
+  .btn-ghost:hover {
+    background: var(--glass-bg-hover);
+    border-color: var(--aster-cyan);
+    color: var(--aster-cyan);
+  }
+
+  /* Glass Input */
+  .glass-input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-size: 0.875rem;
+    color: var(--text-primary);
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--glass-border);
+    border-radius: 8px;
+    backdrop-filter: blur(4px);
+    transition: var(--glass-transition);
+  }
+
+  .glass-input::placeholder {
+    color: var(--text-muted);
+  }
+
+  .glass-input:focus {
+    outline: none;
+    background: rgba(0, 0, 0, 0.3);
+    border-color: var(--aster-cyan);
+    box-shadow: 0 0 0 4px rgba(0, 243, 255, 0.1);
+  }
+
+  /* Animated Background Container */
+  .asterbook-animated-bg {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    overflow: hidden;
+    background:
+      radial-gradient(1200px 900px at 12% 15%, rgba(34, 211, 238, 0.10), transparent 58%),
+      radial-gradient(900px 650px at 82% 24%, rgba(122, 166, 255, 0.12), transparent 60%),
+      radial-gradient(900px 700px at 55% 88%, rgba(245, 158, 11, 0.08), transparent 60%),
+      linear-gradient(180deg, #070A14, #0B1020);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   7. ANIMATION KEYFRAMES
+   -------------------------------------------------------------------------- */
+@keyframes abStars {
+  0% {
+    opacity: 0.05;
+    transform: translate3d(-6px, 4px, 0);
+  }
+  45% {
+    opacity: 0.11;
+    transform: translate3d(8px, -6px, 0);
+  }
+  100% {
+    opacity: 0.06;
+    transform: translate3d(-4px, 8px, 0);
+  }
+}
+
+@keyframes abNebula {
+  0% {
+    opacity: 0.30;
+    transform: translate3d(-2%, -1%, 0) rotate(-2deg) scale(1.04);
+  }
+  50% {
+    opacity: 0.42;
+    transform: translate3d(2%, 1%, 0) rotate(3deg) scale(1.08);
+  }
+  100% {
+    opacity: 0.34;
+    transform: translate3d(-1%, 2%, 0) rotate(6deg) scale(1.06);
+  }
+}
+
+/* Glow pulse animation */
+@keyframes glowPulse {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(0, 243, 255, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(0, 243, 255, 0.6);
+  }
+}
+
+/* Shimmer effect for premium elements */
+@keyframes shimmer {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+/* Fade in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Slide up animation */
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   8. UTILITY CLASSES
+   -------------------------------------------------------------------------- */
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* Text gradient utilities */
+  .text-gradient-cyber {
+    background: linear-gradient(135deg, var(--aster-cyan) 0%, var(--aster-blue) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .text-gradient-gold {
+    background: linear-gradient(135deg, var(--aster-gold) 0%, #fbbf24 50%, var(--aster-gold) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Glow effects */
+  .glow-cyan {
+    box-shadow: 0 0 20px rgba(0, 243, 255, 0.4);
+  }
+
+  .glow-gold {
+    box-shadow: 0 0 20px rgba(245, 158, 11, 0.4);
+  }
+
+  .glow-pulse {
+    animation: glowPulse 2s ease-in-out infinite;
+  }
+
+  /* Animation utilities */
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-out forwards;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.5s ease-out forwards;
+  }
+
+  .animate-shimmer {
+    background-size: 200% auto;
+    animation: shimmer 3s linear infinite;
+  }
+
+  /* Border gradient */
+  .border-gradient-cyber {
+    border-image: linear-gradient(135deg, var(--aster-cyan), var(--aster-blue)) 1;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   9. ACCESSIBILITY & REDUCED MOTION
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .glass-card:hover,
+  .btn-cyber:hover,
+  .btn-aster:hover {
+    transform: none !important;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   10. RESPONSIVE ADJUSTMENTS
+   -------------------------------------------------------------------------- */
+@media (max-width: 768px) {
+  :root {
+    --glass-blur: 8px;
+  }
+
+  .glass-card:hover {
+    transform: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   11. SCROLLBAR STYLING
+   -------------------------------------------------------------------------- */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(15, 23, 42, 0.5);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--glass-border-light);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--aster-cyan);
+}
+
+/* Firefox scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--glass-border-light) rgba(15, 23, 42, 0.5);
+}

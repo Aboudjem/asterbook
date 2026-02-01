@@ -1,0 +1,121 @@
+:root{
+  --pn-bg: rgba(2,6,23,.65);
+  --pn-stroke: rgba(255,255,255,.10);
+  --pn-text: rgba(241,245,249,.95);
+  --pn-muted: rgba(148,163,184,.92);
+  --pn-shadow: 0 20px 60px rgba(0,0,0,.55);
+  --pn-focus: 0 0 0 3px rgba(34,211,238,.18);
+  --pn-accent-1: #22d3ee;
+  --pn-accent-2: #60a5fa;
+}
+
+html[data-profile-accent="amber"]{--pn-accent-1:#fbbf24;--pn-accent-2:#f59e0b;--pn-focus:0 0 0 3px rgba(251,191,36,.18)}
+html[data-profile-accent="pink"]{--pn-accent-1:#f472b6;--pn-accent-2:#a78bfa;--pn-focus:0 0 0 3px rgba(244,114,182,.18)}
+
+.profile-nova-alert{background:rgba(15,23,42,.9);border:1px solid rgba(255,255,255,.1);backdrop-filter:blur(10px);color:#fff}
+.profile-nova-alert .btn-close{filter:invert(1)}
+
+.profile-nova-hero{position:relative;border-radius:18px;overflow:hidden;border:1px solid var(--pn-stroke);box-shadow:var(--pn-shadow);background:radial-gradient(circle at 20% 10%,rgba(34,211,238,.18),transparent 60%),radial-gradient(circle at 80% 30%,rgba(96,165,250,.18),transparent 60%),rgba(2,6,23,.6)}
+.profile-nova-hero-bg{position:absolute;inset:0;opacity:.75}
+.profile-nova-hero-bg img{width:100%;height:100%;object-fit:cover;filter:saturate(1.05) contrast(1.05)}
+.profile-nova-hero-fallback{width:100%;height:100%;background:linear-gradient(135deg,rgba(34,211,238,.18),rgba(96,165,250,.12),rgba(2,6,23,.2))}
+.profile-nova-hero-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.1),rgba(2,6,23,.92) 65%)}
+.profile-nova-hero-content{position:relative;padding:22px 22px 18px;display:flex;gap:18px;align-items:flex-end;justify-content:space-between}
+
+.profile-nova-identity{display:flex;gap:16px;align-items:flex-end;min-width:0}
+.profile-nova-avatar-wrap{position:relative;width:96px;height:96px;flex:0 0 auto;border-radius:999px;background:rgba(2,6,23,.75);border:1px solid rgba(255,255,255,.16);box-shadow:0 14px 40px rgba(0,0,0,.55);transform:translateY(10px)}
+.profile-nova-avatar{width:100%;height:100%;border-radius:999px;object-fit:cover}
+.profile-nova-premium{position:absolute;right:-8px;bottom:-8px;width:34px;height:34px;border-radius:999px;display:flex;align-items:center;justify-content:center;background:rgba(2,6,23,.95);border:1px solid rgba(255,255,255,.14);color:var(--pn-accent-1);box-shadow:0 14px 40px rgba(0,0,0,.55)}
+
+.profile-nova-title{min-width:0}
+.profile-nova-username{margin:0;color:var(--pn-text);font-weight:800;letter-spacing:.2px;font-size:1.3rem;line-height:1.1;word-break:break-word}
+.profile-nova-subline{margin-top:8px;display:flex;flex-wrap:wrap;gap:8px}
+.profile-nova-pill{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border-radius:999px;background:rgba(2,6,23,.55);border:1px solid rgba(255,255,255,.10);color:rgba(226,232,240,.95);font-weight:600;font-size:.78rem;backdrop-filter:blur(10px)}
+.profile-nova-pill-dot{width:8px;height:8px;border-radius:999px;background:var(--pill-accent,var(--pn-accent-1));box-shadow:0 0 0 4px rgba(255,255,255,.04)}
+.profile-nova-bio{margin:10px 0 0;color:var(--pn-muted);font-size:.92rem;max-width:72ch}
+
+.profile-nova-quickgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;flex:0 0 auto}
+.profile-nova-quick{appearance:none;border:none;text-decoration:none;color:rgba(226,232,240,.95);background:linear-gradient(135deg,rgba(255,255,255,.06),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.10);border-radius:14px;padding:10px 10px;display:flex;align-items:center;gap:10px;transition:transform .18s ease,background .18s ease,border-color .18s ease;backdrop-filter:blur(10px);cursor:pointer}
+.profile-nova-quick:hover{transform:translateY(-2px);border-color:rgba(255,255,255,.20)}
+.profile-nova-quick:focus-visible{outline:none;box-shadow:var(--pn-focus)}
+.profile-nova-quick-ico{width:34px;height:34px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 30% 30%,rgba(34,211,238,.28),rgba(96,165,250,.10));border:1px solid rgba(255,255,255,.10);font-size:20px;color:rgba(226,232,240,.95)}
+.profile-nova-quick-ico i{font-size:20px}
+.profile-nova-quick-ico img{max-width:100%;max-height:100%;display:block}
+.profile-nova-quick-ico .x-logo-icon{width:20px;height:20px;opacity:.92}
+.profile-nova-quick-txt{font-weight:700;font-size:.88rem}
+
+.profile-nova-tabs{margin-top:14px;display:flex;gap:8px;flex-wrap:wrap}
+.profile-nova-tab{appearance:none;border:none;background:rgba(2,6,23,.5);color:rgba(226,232,240,.92);border:1px solid rgba(255,255,255,.10);border-radius:999px;padding:10px 14px;font-weight:800;letter-spacing:.2px;transition:transform .18s ease,border-color .18s ease,background .18s ease;cursor:pointer}
+.profile-nova-tab:hover{transform:translateY(-1px);border-color:rgba(255,255,255,.18)}
+.profile-nova-tab:focus-visible{outline:none;box-shadow:var(--pn-focus)}
+.profile-nova-tab.is-active{background:linear-gradient(135deg,rgba(34,211,238,.20),rgba(96,165,250,.10));border-color:rgba(34,211,238,.30)}
+
+.profile-nova-panels{margin-top:14px}
+.profile-nova-panel{display:none;animation:pnFade .22s ease}
+.profile-nova-panel.is-active{display:block}
+@keyframes pnFade{from{opacity:.55;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+
+.profile-nova-card{background:var(--pn-bg);border:1px solid var(--pn-stroke);border-radius:18px;padding:18px;box-shadow:var(--pn-shadow);backdrop-filter:blur(16px)}
+.profile-nova-card-head{display:flex;gap:12px;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;margin-bottom:14px}
+.profile-nova-card-title{display:flex;align-items:center;gap:10px;color:var(--pn-text)}
+.profile-nova-card-title h2{margin:0;font-size:1.05rem;font-weight:900;letter-spacing:.2px}
+.profile-nova-card-title i{color:var(--pn-accent-1)}
+.profile-nova-card-meta{color:var(--pn-muted);font-size:.82rem}
+
+.profile-nova-form .form-control{background:rgba(0,0,0,.18);border:1px solid rgba(255,255,255,.10);color:#fff;border-radius:14px;min-height:44px;padding-left:44px;padding-right:44px;transition:border-color .18s ease,box-shadow .18s ease,background .18s ease}
+.profile-nova-form .form-control:focus{background:rgba(0,0,0,.24);border-color:rgba(34,211,238,.35);box-shadow:var(--pn-focus);color:#fff}
+.profile-nova-form .form-label{color:rgba(226,232,240,.9);font-weight:800}
+.profile-nova-form .form-text{color:rgba(148,163,184,.85)}
+
+.profile-nova-grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:14px}
+.profile-nova-field{grid-column:span 12}
+.profile-nova-input{position:relative}
+.profile-nova-input-ico{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:rgba(148,163,184,.95);pointer-events:none;display:flex;align-items:center;justify-content:center;width:22px;height:22px}
+.profile-nova-input-ico i{font-size:18px}
+.profile-nova-input-ico .x-logo-icon{width:18px;height:18px;display:block;opacity:.9}
+.profile-nova-mini{position:absolute;right:10px;top:50%;transform:translateY(-50%);width:34px;height:34px;border-radius:12px;border:1px solid rgba(255,255,255,.10);background:rgba(255,255,255,.04);color:rgba(226,232,240,.9);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .18s ease,border-color .18s ease}
+.profile-nova-mini:hover{transform:translateY(-50%) scale(1.03);border-color:rgba(255,255,255,.18)}
+.profile-nova-mini:focus-visible{outline:none;box-shadow:var(--pn-focus)}
+
+.profile-nova-actions{margin-top:14px;display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end}
+
+.profile-nova-uploadgrid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:14px}
+.profile-nova-drop{grid-column:span 12;position:relative;border-radius:18px;border:1px dashed rgba(255,255,255,.18);background:linear-gradient(135deg,rgba(255,255,255,.06),rgba(255,255,255,.02));padding:16px;display:flex;flex-direction:column;gap:8px;align-items:flex-start;cursor:pointer;transition:transform .18s ease,border-color .18s ease,background .18s ease}
+.profile-nova-drop:hover{transform:translateY(-2px);border-color:rgba(34,211,238,.35)}
+.profile-nova-drop:focus-within{box-shadow:var(--pn-focus)}
+.profile-nova-file{position:absolute;inset:0;opacity:0;cursor:pointer}
+.profile-nova-drop-ico{width:44px;height:44px;border-radius:16px;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 30% 30%,rgba(34,211,238,.28),rgba(96,165,250,.10));border:1px solid rgba(255,255,255,.10);color:rgba(226,232,240,.95);font-size:20px}
+.profile-nova-drop-title{color:var(--pn-text);font-weight:900;font-size:1rem}
+.profile-nova-drop-sub{color:var(--pn-muted);font-weight:700;font-size:.86rem;word-break:break-word}
+
+.profile-nova-security{display:flex;flex-direction:column;gap:12px}
+.profile-nova-security-item{display:flex;gap:14px;align-items:center;justify-content:space-between;padding:14px;border-radius:18px;border:1px solid rgba(255,255,255,.08);background:rgba(0,0,0,.16)}
+.profile-nova-security-item .profile-nova-quick-ico{font-size:20px}
+.profile-nova-security-item .profile-nova-quick-ico .x-logo-icon{width:20px;height:20px;opacity:.92}
+.profile-nova-security-title{color:var(--pn-text);font-weight:900}
+.profile-nova-security-sub{color:var(--pn-muted);font-size:.88rem}
+
+.profile-nova-activity{display:flex;flex-direction:column;gap:14px}
+.profile-nova-kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.profile-nova-kpi{padding:14px;border-radius:18px;border:1px solid rgba(255,255,255,.08);background:rgba(0,0,0,.16)}
+.profile-nova-kpi-label{color:var(--pn-muted);font-weight:800;font-size:.8rem;text-transform:uppercase;letter-spacing:.12em}
+.profile-nova-kpi-value{margin-top:6px;color:var(--pn-text);font-weight:900;font-size:1.1rem}
+.profile-nova-note{padding:14px;border-radius:18px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03);color:rgba(226,232,240,.88);line-height:1.5}
+
+@media (min-width: 992px){
+  .profile-nova-hero-content{padding:24px 26px 20px}
+  .profile-nova-field{grid-column:span 6}
+  .profile-nova-field:nth-child(1){grid-column:span 12}
+  .profile-nova-uploadgrid .profile-nova-drop{grid-column:span 6}
+}
+
+@media (max-width: 991px){
+  .profile-nova-hero-content{flex-direction:column;align-items:stretch}
+  .profile-nova-quickgrid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .profile-nova-kpis{grid-template-columns:repeat(1,minmax(0,1fr))}
+}
+
+@media (prefers-reduced-motion: reduce){
+  .profile-nova-panel{animation:none}
+  .profile-nova-quick,.profile-nova-tab,.profile-nova-drop{transition:none}
+}

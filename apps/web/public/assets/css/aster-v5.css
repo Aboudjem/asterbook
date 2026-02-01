@@ -1,0 +1,409 @@
+/* 
+   ==========================================================================
+   ASTER V5 - NEBULA GLASS UI SYSTEM (2026)
+   Designed for High-Performance & immersive Experience
+   ========================================================================== 
+*/
+
+:root {
+    /* --- CORE PALETTE --- */
+    --bg-deep: #020617;        /* Deep Space Base */
+    --bg-nebula: #0f172a;      /* Lighter Space */
+    
+    /* --- BRAND COLORS --- */
+    --color-primary: #00f3ff;  /* Cyber Cyan (New Primary) */
+    --color-secondary: #3b82f6; /* Electric Blue (Legacy Support) */
+    --color-premium: #f59e0b;  /* Stellar Gold */
+    --color-danger: #ef4444;
+    --color-success: #10b981;
+    
+    /* --- GLASSMORPHISM --- */
+    --glass-bg: rgba(15, 23, 42, 0.65);
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --glass-shine: rgba(255, 255, 255, 0.03);
+    --glass-blur: 24px;
+    
+    /* --- SHADOWS & GLOWS --- */
+    --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+    --shadow-lg: 0 20px 50px -12px rgba(0, 0, 0, 0.5);
+    --glow-primary: 0 0 20px rgba(0, 243, 255, 0.15);
+    --glow-premium: 0 0 20px rgba(245, 158, 11, 0.15);
+    
+    /* --- TYPOGRAPHY --- */
+    --font-main: 'Inter', system-ui, -apple-system, sans-serif;
+    --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+}
+
+/* --- GLOBAL RESET & BASE --- */
+body {
+    background-color: var(--bg-deep) !important;
+    background-image: 
+        radial-gradient(circle at 15% 50%, rgba(59, 130, 246, 0.08), transparent 40%),
+        radial-gradient(circle at 85% 30%, rgba(245, 158, 11, 0.04), transparent 40%);
+    background-attachment: fixed;
+    color: #e2e8f0;
+    font-family: var(--font-main);
+    overflow-x: hidden;
+}
+
+/* Scrollbar Modernization */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.2); }
+
+/* --- SHOOTING STARS BACKGROUND (Optimized) --- */
+.night-sky-container {
+    position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden;
+}
+
+.star {
+    position: absolute; top: 50%; left: 50%; height: 2px;
+    background: linear-gradient(-45deg, var(--color-primary), rgba(0, 0, 255, 0));
+    filter: drop-shadow(0 0 6px var(--color-primary));
+    animation: tail 4000ms ease-in-out infinite, shooting 4000ms ease-in-out infinite;
+}
+
+.star::before, .star::after {
+    content: ''; position: absolute; top: calc(50% - 1px); right: 0; height: 2px;
+    background: linear-gradient(-45deg, rgba(0, 0, 255, 0), var(--color-primary), rgba(0, 0, 255, 0));
+    transform: translateX(50%) rotateZ(45deg); border-radius: 100%;
+    animation: shining 4000ms ease-in-out infinite;
+}
+.star::after { transform: translateX(50%) rotateZ(-45deg); }
+
+.star:nth-child(1) { top: 0; left: 50%; animation-delay: 0s; }
+.star:nth-child(2) { top: 0; left: 20%; animation-delay: 2s; }
+.star:nth-child(3) { top: 0; left: 80%; animation-delay: 4s; }
+.star:nth-child(4) { top: 20%; left: 0; animation-delay: 6s; }
+.star:nth-child(5) { top: 60%; left: 0; animation-delay: 8s; }
+
+@keyframes tail { 0% { width: 0; } 30% { width: 100px; } 100% { width: 0; } }
+@keyframes shooting { 0% { transform: translateX(0); } 100% { transform: translateX(300px); } }
+@keyframes shining { 0% { width: 0; } 50% { width: 30px; } 100% { width: 0; } }
+
+/* --- COMMON GLASS COMPONENTS --- */
+.glass-panel-base {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur)) saturate(120%);
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(120%);
+    border: 1px solid var(--glass-border);
+    border-top: 1px solid rgba(255,255,255,0.12);
+    border-radius: 20px;
+    box-shadow: var(--shadow-lg);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.glass-panel-base:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 25px 60px -10px rgba(0,0,0,0.6);
+    border-color: rgba(255,255,255,0.15);
+}
+
+/* --- DASHBOARD GRID SYSTEM (Responsive Fix) --- */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 24px;
+    padding-bottom: 40px;
+}
+
+.grid-item { grid-column: span 12; display: flex; flex-direction: column; }
+
+/* Desktop (XL) */
+@media (min-width: 1200px) {
+    .item-whale { grid-column: span 6; }
+    .item-ai { grid-column: span 6; }
+}
+
+/* Tablet (MD - LG) */
+@media (min-width: 768px) and (max-width: 1199px) {
+    .item-whale { grid-column: span 12; } /* Full width on tablet for better readability */
+    .item-ai { grid-column: span 12; }
+}
+
+/* Mobile (XS - SM) */
+@media (max-width: 767px) {
+    .dashboard-grid { display: flex; flex-direction: column; gap: 20px; }
+    .pc-container { padding-top: 110px !important; padding-left: 15px !important; padding-right: 15px !important; }
+}
+
+/* --- SPECIFIC WIDGET STYLES (Migrated & Enhanced) --- */
+
+/* 1. Welcome Banner */
+.welcome-banner-modern {
+    background: linear-gradient(135deg, rgba(16, 20, 28, 0.8), rgba(2, 6, 23, 0.9));
+    border-radius: 24px;
+    border: 1px solid var(--glass-border);
+    position: relative;
+    overflow: hidden;
+    height: 100%;
+}
+
+.welcome-banner-modern::before {
+    content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+    background: radial-gradient(circle at 50% 50%, rgba(0, 243, 255, 0.05), transparent 60%);
+    pointer-events: none;
+    animation: pulse-slow 8s infinite;
+}
+
+.banner-tag {
+    background: rgba(0, 243, 255, 0.1); color: var(--color-primary);
+    padding: 6px 14px; border-radius: 50px; font-size: 0.75rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 1px; display: inline-block; margin-bottom: 1rem;
+    border: 1px solid rgba(0, 243, 255, 0.2);
+}
+
+.btn-cyber {
+    background: rgba(255,255,255,0.05); color: #fff;
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 12px 24px; border-radius: 12px; font-weight: 600;
+    display: inline-flex; align-items: center; gap: 8px; text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.btn-cyber:hover {
+    background: var(--color-primary); color: #000;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 20px rgba(0, 243, 255, 0.4);
+    transform: translateY(-2px);
+}
+
+/* 2. Portfolio Fintech Card */
+.portfolio-card-fintech {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.fintech-header {
+    padding: 20px 24px;
+    background: rgba(0,0,0,0.2);
+    border-bottom: 1px solid var(--glass-border);
+    display: flex; justify-content: space-between; align-items: center;
+}
+
+.fintech-title { font-weight: 700; color: #fff; display: flex; align-items: center; gap: 10px; letter-spacing: 0.5px; }
+.fintech-badge { background: rgba(16, 185, 129, 0.15); color: var(--color-success); padding: 4px 10px; border-radius: 50px; font-size: 0.7rem; border: 1px solid rgba(16, 185, 129, 0.2); }
+
+.fintech-body { padding: 24px; }
+.fintech-stat-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 24px; }
+@media (max-width: 576px) { .fintech-stat-grid { grid-template-columns: 1fr; } }
+
+.fintech-stat-card {
+    background: rgba(255,255,255,0.02); border: 1px solid var(--glass-border);
+    border-radius: 12px; padding: 16px; transition: 0.2s;
+}
+.fintech-stat-card:hover { border-color: var(--color-primary); background: rgba(0, 243, 255, 0.02); }
+
+.fintech-value { font-size: 1.5rem; font-weight: 700; color: #fff; margin-top: 4px; }
+.fintech-label { font-size: 0.75rem; color: #ffffff; text-transform: uppercase; letter-spacing: 1px; }
+.fintech-subvalue { font-size: 0.85rem; color: #e2e8f0; margin-top: 2px; }
+
+/* Visibility Overrides for Portfolio Pro */
+.portfolio-card-fintech .text-muted { color: #cbd5e1 !important; }
+.portfolio-card-fintech .fintech-input::placeholder { color: #94a3b8; opacity: 1; }
+
+/* Specific Fix for Price Alerts Box */
+#portfolio-settings .bg-dark {
+    background-color: rgba(2, 6, 23, 0.8) !important;
+    border-color: rgba(255, 255, 255, 0.2) !important;
+}
+#portfolio-settings .form-check-label {
+    color: #ffffff !important;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+    font-weight: 700 !important;
+}
+
+/* Wallet List */
+.fintech-wallet-list { border: 1px solid var(--glass-border); border-radius: 12px; overflow: hidden; }
+.fintech-wallet-item {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 18px; background: rgba(0,0,0,0.1); border-bottom: 1px solid var(--glass-border);
+}
+.fintech-wallet-item:last-child { border-bottom: none; }
+
+.fintech-input {
+    background: rgba(0,0,0,0.3); border: 1px solid var(--glass-border); color: #fff;
+    padding: 10px 14px; border-radius: 8px; width: 100%; transition: 0.2s;
+}
+.fintech-input:focus { border-color: var(--color-primary); outline: none; box-shadow: 0 0 0 2px rgba(0, 243, 255, 0.1); }
+
+.fintech-btn-primary {
+    background: var(--color-primary); color: #000; border: none; padding: 10px 20px;
+    border-radius: 8px; font-weight: 700; transition: 0.2s;
+}
+.fintech-btn-primary:hover { filter: brightness(1.1); box-shadow: 0 0 15px rgba(0, 243, 255, 0.3); }
+
+/* 3. Performance & Listing Cards */
+#performance-container, .listing-card-modern {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    position: relative; overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.listing-card-modern { padding: 24px; display: flex; align-items: center; gap: 20px; }
+.listing-card-modern:hover { transform: translateY(-3px); box-shadow: var(--glow-primary); border-color: rgba(0, 243, 255, 0.3); }
+
+.listing-icon-box {
+    width: 60px; height: 60px; border-radius: 16px; padding: 2px;
+    background: linear-gradient(135deg, var(--color-primary), #8b5cf6);
+}
+.listing-icon-box img { width: 100%; height: 100%; border-radius: 14px; border: 2px solid #000; object-fit: cover; }
+
+.radar-header {
+    padding: 16px 24px; background: rgba(255,255,255,0.02);
+    border-bottom: 1px solid var(--glass-border); border-radius: 20px 20px 0 0;
+}
+
+/* 4. Whale Radar & AI Terminal */
+#whale-alert-container, #ai-analytics-container {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    overflow: hidden;
+    height: 100%; min-height: 400px;
+}
+
+/* Transaction Item */
+.tx-item {
+    background: rgba(255,255,255,0.02); border: 1px solid var(--glass-border);
+    border-radius: 12px; margin-bottom: 10px; padding: 12px 16px;
+    display: flex; align-items: center; justify-content: space-between;
+    transition: 0.2s;
+}
+.tx-item:hover { background: rgba(0, 243, 255, 0.05); border-color: rgba(0, 243, 255, 0.3); }
+
+.whale-icon {
+    width: 40px; height: 40px; background: rgba(0, 243, 255, 0.1); color: var(--color-primary);
+    border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem;
+}
+
+/* Terminal */
+.terminal-body {
+    background: #050a14; padding: 20px; height: 400px; overflow-y: auto;
+    font-family: var(--font-mono); font-size: 0.85rem; line-height: 1.6;
+    border-top: 1px solid var(--glass-border);
+}
+.terminal-line { margin-bottom: 6px; padding-left: 10px; border-left: 2px solid transparent; }
+.terminal-line.info { color: #94a3b8; border-color: #3b82f6; }
+.terminal-line.success { color: #10b981; border-color: #10b981; text-shadow: 0 0 10px rgba(16, 185, 129, 0.3); }
+.terminal-line.warning { color: #f59e0b; border-color: #f59e0b; }
+.terminal-line.danger { color: #ef4444; border-color: #ef4444; }
+
+/* 5. Discord & Twitter Cards */
+.discord-card {
+    background: linear-gradient(135deg, rgba(88, 101, 242, 0.1), rgba(15, 23, 42, 0.8));
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(88, 101, 242, 0.3);
+    border-radius: 20px; padding: 30px; position: relative; overflow: hidden;
+    display: flex; flex-direction: column; justify-content: center;
+}
+@media (min-width: 768px) { .discord-card { flex-direction: row; align-items: center; justify-content: space-between; } }
+
+.discord-btn {
+    background: #5865F2; color: #fff; padding: 12px 24px; border-radius: 12px;
+    font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+    transition: 0.2s; box-shadow: 0 5px 15px rgba(88, 101, 242, 0.3);
+}
+.discord-btn:hover { background: #4752C4; transform: scale(1.05); color: #fff; }
+
+/* --- UTILITIES & EXTRAS --- */
+.text-zauth-effect {
+    background: linear-gradient(180deg, #FFFFFF 0%, #94a3b8 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 0 15px rgba(255,255,255,0.2));
+}
+
+.pulsing { animation: pulse 2s infinite; }
+@keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
+
+/* Floating Promo Overlay (Jan 25) */
+.floating-promo-overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(10px);
+    z-index: 10000; display: flex; align-items: center; justify-content: center;
+}
+.floating-promo-card {
+    background: #0f172a; border: 1px solid var(--color-premium); border-radius: 24px;
+    padding: 40px; text-align: center; position: relative; max-width: 500px; width: 90%;
+    box-shadow: 0 0 50px rgba(245, 158, 11, 0.2);
+}
+.promo-badge {
+    background: rgba(245, 158, 11, 0.2); color: var(--color-premium);
+    padding: 6px 16px; border-radius: 50px; font-weight: 700; border: 1px solid rgba(245, 158, 11, 0.3);
+    display: inline-block; margin-bottom: 20px;
+}
+.promo-cta-btn {
+    display: block; width: 100%; padding: 16px; background: var(--color-premium);
+    color: #000; font-weight: 800; border-radius: 12px; text-decoration: none;
+    margin-top: 20px; text-transform: uppercase; transition: 0.2s;
+}
+.promo-cta-btn:hover { filter: brightness(1.1); transform: scale(1.02); color: #000; }
+
+/* Floating Logo */
+.floating-aster-logo {
+    position: fixed; bottom: 30px; right: 30px; width: 100px; opacity: 0.2;
+    z-index: 9999; pointer-events: none; animation: float 6s ease-in-out infinite;
+}
+@keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+
+/* X Alert Popup */
+#x-alert-popup {
+    position: fixed; bottom: 30px; right: 30px; width: 340px;
+    background: rgba(15, 23, 42, 0.9); backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 20px;
+    z-index: 9998; transform: translateY(100px); opacity: 0; transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display: flex; gap: 15px; align-items: flex-start;
+}
+#x-alert-popup.active { transform: translateY(0); opacity: 1; pointer-events: all; }
+.x-popup-icon { width: 40px; height: 40px; background: #000; color: #fff; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.x-popup-btn {
+    display: inline-flex; align-items: center; gap: 6px; background: #fff; color: #000;
+    padding: 6px 14px; border-radius: 20px; font-size: 0.8rem; font-weight: 700;
+    text-decoration: none; margin-top: 8px; transition: 0.2s;
+}
+.x-popup-btn:hover { transform: scale(1.05); color: #000; }
+
+/* Portfolio Stat Card (Small) */
+.portfolio-stat-card {
+    background: rgba(255,255,255,0.03); border-radius: 12px; padding: 15px; height: 100%;
+    border: 1px solid transparent; transition: 0.2s;
+}
+.portfolio-stat-card:hover { border-color: rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); }
+
+/* --- RESPONSIVE TYPOGRAPHY --- */
+@media (max-width: 768px) {
+    h1 { font-size: 1.8rem !important; }
+    h2 { font-size: 1.5rem !important; }
+    h3 { font-size: 1.3rem !important; }
+    .display-4 { font-size: 2rem !important; }
+}
+
+/* Sidebar Fixes for Mobile */
+@media (max-width: 1024px) {
+    .pc-sidebar { background: rgba(2, 6, 23, 0.95) !important; backdrop-filter: blur(30px); }
+}
+
+/* PWA Modal */
+.pwa-modal {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(10px);
+    z-index: 10001; display: flex; align-items: center; justify-content: center;
+    opacity: 0; pointer-events: none; transition: 0.3s;
+}
+.pwa-modal.active { opacity: 1; pointer-events: all; }
+.pwa-card {
+    background: #0f172a; border: 1px solid var(--color-primary); border-radius: 24px;
+    padding: 30px; width: 90%; max-width: 400px; text-align: center;
+    box-shadow: var(--glow-primary);
+}

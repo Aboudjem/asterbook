@@ -1,0 +1,75 @@
+/* Seasonal Themes CSS */
+
+/* --- CHRISTMAS THEME --- */
+body.theme-christmas {
+    --bs-body-bg: #0b1a20; /* Darker, colder blueish tone */
+    --bs-primary: #e63946; /* Santa Red */
+    --bs-success: #2a9d8f; /* Pine Green */
+}
+
+body.theme-christmas::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9999;
+    background-image: 
+        radial-gradient(4px 4px at 100px 50px, #fff, transparent),
+        radial-gradient(6px 6px at 200px 150px, #fff, transparent),
+        radial-gradient(3px 3px at 300px 250px, #fff, transparent),
+        radial-gradient(4px 4px at 400px 350px, #fff, transparent),
+        radial-gradient(6px 6px at 500px 100px, #fff, transparent),
+        radial-gradient(3px 3px at 600px 400px, #fff, transparent),
+        radial-gradient(4px 4px at 800px 500px, #fff, transparent),
+        radial-gradient(6px 6px at 900px 200px, #fff, transparent);
+    background-size: 550px 550px, 350px 350px, 250px 250px;
+    animation: snow 10s linear infinite;
+    opacity: 0.3;
+}
+
+@keyframes snow {
+    0% { background-position: 0px 0px, 0px 0px, 0px 0px; }
+    100% { background-position: 550px 550px, 350px 350px, 250px 250px; }
+}
+
+/* --- HALLOWEEN THEME --- */
+body.theme-halloween {
+    --bs-body-bg: #1a0500; /* Dark brownish black */
+    --bs-primary: #ff7b00; /* Pumpkin Orange */
+    --bs-secondary: #590d22; /* Blood Red */
+}
+
+body.theme-halloween .card, 
+body.theme-halloween .aster-card {
+    border-color: rgba(255, 123, 0, 0.3) !important;
+    box-shadow: 0 0 15px rgba(255, 123, 0, 0.1);
+}
+
+body.theme-halloween::after {
+    content: '🎃';
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    font-size: 3rem;
+    opacity: 0.5;
+    z-index: 9999;
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+/* --- BULL MARKET THEME (GOLD) --- */
+body.theme-bull-market {
+    --bs-primary: #ffd700; /* Gold */
+}
+
+body.theme-bull-market .aster-card {
+    border-color: rgba(255, 215, 0, 0.5);
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
+}

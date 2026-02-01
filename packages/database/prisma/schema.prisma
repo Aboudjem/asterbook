@@ -1,0 +1,378 @@
+// Asterbook Database Schema
+// Converted from PHP/MySQL to Prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+// ==================== USER SYSTEM ====================
+
+model User {
+  id                   Int       @id @default(autoincrement())
+  username             String    @unique @db.VarChar(50)
+  email                String    @unique @db.VarChar(100)
+  password             String    @db.VarChar(255)
+  avatar               String?   @db.VarChar(255)
+  profileBanner        String?   @map("profile_banner") @db.VarChar(255)
+  bio                  String?   @db.VarChar(255)
+  socialDiscord        String?   @map("social_discord") @db.VarChar(255)
+  socialTwitter        String?   @map("social_twitter") @db.VarChar(255)
+  socialPortfolio      String?   @map("social_portfolio") @db.VarChar(255)
+  wallet               String?   @db.VarChar(255)
+  isPremium            Boolean   @default(false) @map("is_premium")
+  premiumExpiresAt     DateTime? @map("premium_expires_at")
+  premiumTrialUsed     Boolean   @default(false) @map("premium_trial_used")
+  paymentStatus        String    @default("none") @map("payment_status") @db.VarChar(20)
+  txHash               String?   @map("tx_hash") @db.VarChar(255)
+  stardustCoins        BigInt    @default(0) @map("stardust_coins")
+  totalOnlineTime      BigInt    @default(0) @map("total_online_time")
+  lastSeen             DateTime? @map("last_seen")
+  isFrozen             Boolean   @default(false) @map("is_frozen")
+  activeBannerId       Int?      @map("active_banner_id")
+  activeBorderId       Int?      @map("active_border_id")
+  activeNameEffectId   Int?      @map("active_name_effect_id")
+  createdAt            DateTime  @default(now()) @map("created_at")
+
+  pet                  UserPet?
+  balance              UserBalance?
+  inventory            UserInventory[]
+  arenaBattles         ArenaBattle[]
+  createdLobbies       ArenaLobby[]      @relation("LobbyCreator")
+  joinedLobbies        ArenaLobby[]      @relation("LobbyJoiner")
+  wonLobbies           ArenaLobby[]      @relation("LobbyWinner")
+  stakingVaults        StakingVault[]
+  dailyQuests          DailyQuest[]
+  marketplaceComponents MarketplaceComponent[]
+  marketplacePurchases MarketplacePurchase[]
+  apiKeys              ApiKey[]
+  sentinelSnapshot     SentinelSnapshot?
+  sentinelAlerts       SentinelAlert[]
+  chatParticipations   ChatParticipant[]
+  sentMessages         ChatMessage[]
+  predictionVote       AsterPredictionVote?
+  promoUsages          UserPromoUsage[]
+
+  @@map("users")
+}
+
+model UserBalance {
+  userId  Int      @id @map("user_id")
+  balance Decimal  @default(1000.00) @db.Decimal(20, 2)
+  user    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("user_balances")
+}
+
+// ==================== PET SYSTEM ====================
+
+model UserPet {
+  id                 Int       @id @default(autoincrement())
+  userId             Int       @unique @map("user_id")
+  petType            String    @default("dragon_egg") @map("pet_type") @db.VarChar(50)
+  stage              Int       @default(1)
+  hunger             Int       @default(50)
+  evolutionProgress  Int       @default(0) @map("evolution_progress")
+  rarity             String?   @db.VarChar(20)
+  element            String?   @db.VarChar(20)
+  expeditionStatus   String    @default("idle") @map("expedition_status") @db.VarChar(20)
+  expeditionEnd      DateTime? @map("expedition_end")
+  lastFed            DateTime  @default(now()) @map("last_fed")
+  createdAt          DateTime  @default(now()) @map("created_at")
+
+  user               User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  arenaBattles       ArenaBattle[]
+
+  @@map("user_pets")
+}
+
+// ==================== ARENA SYSTEM ====================
+
+model ArenaBattle {
+  id           Int      @id @default(autoincrement())
+  userId       Int      @map("user_id")
+  petId        Int      @map("pet_id")
+  betAmount    Decimal  @map("bet_amount") @db.Decimal(20, 2)
+  feeAmount    Decimal  @map("fee_amount") @db.Decimal(20, 2)
+  winChance    Float    @map("win_chance")
+  result       String   @db.VarChar(10)
+  rewardAmount Decimal  @map("reward_amount") @db.Decimal(20, 2)
+  createdAt    DateTime @default(now()) @map("created_at")
+
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  pet          UserPet  @relation(fields: [petId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("arena_battles")
+}
+
+model ArenaLobby {
+  id         Int       @id @default(autoincrement())
+  creatorId  Int       @map("creator_id")
+  joinerId   Int?      @map("joiner_id")
+  betAmount  Decimal   @map("bet_amount") @db.Decimal(20, 2)
+  status     String    @default("waiting") @db.VarChar(20)
+  winnerId   Int?      @map("winner_id")
+  createdAt  DateTime  @default(now()) @map("created_at")
+  updatedAt  DateTime  @updatedAt @map("updated_at")
+
+  creator    User      @relation("LobbyCreator", fields: [creatorId], references: [id], onDelete: Cascade)
+  joiner     User?     @relation("LobbyJoiner", fields: [joinerId], references: [id])
+  winner     User?     @relation("LobbyWinner", fields: [winnerId], references: [id])
+
+  @@index([creatorId])
+  @@index([status])
+  @@map("arena_lobbies")
+}
+
+// ==================== STAKING SYSTEM ====================
+
+model StakingVault {
+  id           Int      @id @default(autoincrement())
+  userId       Int      @map("user_id")
+  amount       Decimal  @db.Decimal(20, 2)
+  apy          Decimal  @db.Decimal(5, 2)
+  durationDays Int      @map("duration_days")
+  status       String   @default("active") @db.VarChar(20)
+  stakedAt     DateTime @default(now()) @map("staked_at")
+  unlocksAt    DateTime @map("unlocks_at")
+  claimedAt    DateTime? @map("claimed_at")
+
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([status])
+  @@map("staking_vaults")
+}
+
+// ==================== SHOP SYSTEM ====================
+
+model ShopItem {
+  id           Int      @id @default(autoincrement())
+  name         String   @db.VarChar(255)
+  description  String?  @db.Text
+  price        Decimal  @db.Decimal(20, 2)
+  imageUrl     String?  @map("image_url") @db.VarChar(255)
+  category     String   @db.VarChar(50)
+  isAnimated   Boolean  @default(false) @map("is_animated")
+  minRankLevel Int      @default(1) @map("min_rank_level")
+  createdAt    DateTime @default(now()) @map("created_at")
+
+  inventory    UserInventory[]
+
+  @@map("shop_items")
+}
+
+model UserInventory {
+  id         Int      @id @default(autoincrement())
+  userId     Int      @map("user_id")
+  itemId     Int      @map("item_id")
+  acquiredAt DateTime @default(now()) @map("acquired_at")
+
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  item       ShopItem @relation(fields: [itemId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, itemId])
+  @@map("user_inventory")
+}
+
+// ==================== QUEST SYSTEM ====================
+
+model DailyQuest {
+  id              Int      @id @default(autoincrement())
+  userId          Int      @map("user_id")
+  questType       String   @map("quest_type") @db.VarChar(50)
+  description     String?  @db.Text
+  targetCount     Int      @default(1) @map("target_count")
+  currentProgress Int      @default(0) @map("current_progress")
+  rewardAmount    Int      @default(50) @map("reward_amount")
+  status          String   @default("active") @db.VarChar(20)
+  dateAssigned    DateTime @map("date_assigned") @db.Date
+  batchId         String?  @map("batch_id") @db.VarChar(50)
+
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([dateAssigned])
+  @@index([batchId])
+  @@map("daily_quests")
+}
+
+// ==================== MARKETPLACE SYSTEM ====================
+
+model MarketplaceComponent {
+  id          Int      @id @default(autoincrement())
+  userId      Int      @map("user_id")
+  title       String   @db.VarChar(255)
+  description String?  @db.Text
+  price       Decimal  @default(0) @db.Decimal(20, 2)
+  category    String?  @db.VarChar(50)
+  codeSnippet String?  @map("code_snippet") @db.Text
+  demoHtml    String?  @map("demo_html") @db.Text
+  demoCss     String?  @map("demo_css") @db.Text
+  demoJs      String?  @map("demo_js") @db.Text
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  purchases   MarketplacePurchase[]
+
+  @@map("marketplace_components")
+}
+
+model MarketplacePurchase {
+  id          Int      @id @default(autoincrement())
+  buyerId     Int      @map("buyer_id")
+  componentId Int      @map("component_id")
+  pricePaid   Decimal  @map("price_paid") @db.Decimal(20, 2)
+  licenseKey  String   @map("license_key") @db.VarChar(255)
+  purchasedAt DateTime @default(now()) @map("purchased_at")
+
+  buyer       User     @relation(fields: [buyerId], references: [id], onDelete: Cascade)
+  component   MarketplaceComponent @relation(fields: [componentId], references: [id], onDelete: Cascade)
+
+  @@map("marketplace_purchases")
+}
+
+// ==================== DEVELOPER API SYSTEM ====================
+
+model ApiKey {
+  id         Int       @id @default(autoincrement())
+  userId     Int       @map("user_id")
+  name       String    @db.VarChar(100)
+  apiKey     String    @unique @map("api_key") @db.VarChar(64)
+  apiKeyHash String    @map("api_key_hash") @db.VarChar(255)
+  status     String    @default("active") @db.VarChar(20)
+  createdAt  DateTime  @default(now()) @map("created_at")
+  lastUsedAt DateTime? @map("last_used_at")
+
+  user       User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  usages     ApiUsage[]
+
+  @@index([userId])
+  @@map("api_keys")
+}
+
+model ApiUsage {
+  id        Int      @id @default(autoincrement())
+  apiKeyId  Int      @map("api_key_id")
+  endpoint  String   @db.VarChar(255)
+  method    String   @db.VarChar(10)
+  cost      Int      @default(1)
+  createdAt DateTime @default(now()) @map("created_at")
+
+  apiKey    ApiKey   @relation(fields: [apiKeyId], references: [id], onDelete: Cascade)
+
+  @@index([apiKeyId])
+  @@map("api_usages")
+}
+
+// ==================== SECURITY SYSTEM (SENTINEL) ====================
+
+model SentinelSnapshot {
+  userId        Int      @id @map("user_id")
+  lastBalance   BigInt   @default(0) @map("last_balance")
+  lastCheckTime DateTime @default(now()) @map("last_check_time")
+
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sentinel_snapshots")
+}
+
+model SentinelAlert {
+  id        Int      @id @default(autoincrement())
+  userId    Int      @map("user_id")
+  ruleName  String   @map("rule_name") @db.VarChar(50)
+  details   String?  @db.Text
+  severity  String   @default("high") @db.VarChar(20)
+  createdAt DateTime @default(now()) @map("created_at")
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("sentinel_alerts")
+}
+
+// ==================== CHAT SYSTEM ====================
+
+model ChatConversation {
+  id           Int       @id @default(autoincrement())
+  type         String    @default("direct") @db.VarChar(20)
+  createdAt    DateTime  @default(now()) @map("created_at")
+
+  participants ChatParticipant[]
+  messages     ChatMessage[]
+
+  @@map("chat_conversations")
+}
+
+model ChatParticipant {
+  id             Int      @id @default(autoincrement())
+  conversationId Int      @map("conversation_id")
+  userId         Int      @map("user_id")
+  joinedAt       DateTime @default(now()) @map("joined_at")
+
+  conversation   ChatConversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  user           User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([conversationId, userId])
+  @@map("chat_participants")
+}
+
+model ChatMessage {
+  id             Int      @id @default(autoincrement())
+  conversationId Int      @map("conversation_id")
+  senderId       Int      @map("sender_id")
+  message        String   @db.Text
+  createdAt      DateTime @default(now()) @map("created_at")
+
+  conversation   ChatConversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  sender         User             @relation(fields: [senderId], references: [id], onDelete: Cascade)
+
+  @@index([conversationId])
+  @@map("chat_messages")
+}
+
+// ==================== OTHER TABLES ====================
+
+model AsterPredictionVote {
+  id        Int      @id @default(autoincrement())
+  userId    Int      @unique @map("user_id")
+  voteType  String   @map("vote_type") @db.VarChar(10)
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("aster_prediction_votes")
+}
+
+model PromoCode {
+  id          Int       @id @default(autoincrement())
+  code        String    @unique @db.VarChar(50)
+  rewardType  String    @map("reward_type") @db.VarChar(20)
+  rewardValue Int       @map("reward_value")
+  maxUses     Int       @default(1) @map("max_uses")
+  usedCount   Int       @default(0) @map("used_count")
+  expiresAt   DateTime? @map("expires_at")
+  createdAt   DateTime  @default(now()) @map("created_at")
+
+  usages      UserPromoUsage[]
+
+  @@map("promo_codes")
+}
+
+model UserPromoUsage {
+  id        Int      @id @default(autoincrement())
+  userId    Int      @map("user_id")
+  promoId   Int      @map("promo_id")
+  usedAt    DateTime @default(now()) @map("used_at")
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  promo     PromoCode @relation(fields: [promoId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, promoId])
+  @@map("user_promo_usages")
+}
