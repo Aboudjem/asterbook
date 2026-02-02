@@ -11,18 +11,26 @@
     "db:generate": "prisma generate",
     "db:push": "prisma db push",
     "db:migrate": "prisma migrate dev",
+    "db:seed": "tsx prisma/seed.ts",
+    "db:reset": "prisma db push --force-reset && pnpm db:seed",
     "db:studio": "prisma studio",
     "lint": "eslint src/",
     "clean": "rm -rf dist node_modules .turbo"
   },
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
+  },
   "dependencies": {
-    "@prisma/client": "^5.10.0"
+    "@prisma/client": "^5.10.0",
+    "bcrypt": "^5.1.1"
   },
   "devDependencies": {
     "@asterbook/eslint-config": "workspace:*",
     "@asterbook/types": "workspace:*",
+    "@types/bcrypt": "^5.0.2",
     "prisma": "^5.10.0",
     "tsup": "^8.0.0",
+    "tsx": "^4.21.0",
     "typescript": "^5.3.0"
   },
   "exports": {
