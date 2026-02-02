@@ -1,490 +1,173 @@
 /* ==========================================================================
-   ASTERBOOK DESIGN SYSTEM - GLOBALS.CSS
+   ASTERBOOK - GLOBALS.CSS
+   Priority: Bootstrap (style.css) > Custom CSS > Tailwind utilities
    ========================================================================== */
 
 /* --------------------------------------------------------------------------
-   1. TAILWIND DIRECTIVES
+   1. CORE BOOTSTRAP/PC STYLES (from original PHP)
+   These contain Bootstrap 5 bundled + custom PC sidebar/header styles
    -------------------------------------------------------------------------- */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-/* --------------------------------------------------------------------------
-   2. EXTERNAL CSS IMPORTS
-   -------------------------------------------------------------------------- */
-/* Core Styles */
 @import '/assets/css/style.css';
 @import '/assets/css/style-preset.css';
+
+/* --------------------------------------------------------------------------
+   2. ASTERBOOK CUSTOM STYLES
+   -------------------------------------------------------------------------- */
+/* Glass & Modern Effects */
 @import '/assets/css/glass-modern.css';
 @import '/assets/css/asterbook-animated-bg.css';
+@import '/assets/css/aster-nebula.css';
+@import '/assets/css/seasonal-themes.css';
 
-/* Auth & Profile Styles */
+/* Auth Styles */
 @import '/assets/css/auth-chronicle.css';
+
+/* Profile Customization */
 @import '/assets/css/profile-borders.css';
 @import '/assets/css/name-effects.css';
 @import '/assets/css/profile-nova.css';
 
 /* Feature Styles */
-@import '/assets/css/aster-nebula.css';
-@import '/assets/css/seasonal-themes.css';
 @import '/assets/css/chat.css';
 @import '/assets/css/privacy-chat-v2.css';
 
-/* Fonts */
-@import '/assets/fonts/tabler-icons.min.css';
-@import '/assets/fonts/feather.css';
-@import '/assets/fonts/fontawesome.css';
-@import '/assets/fonts/phosphor/duotone/style.css';
-
-/* Dashboard Inline Styles */
+/* --------------------------------------------------------------------------
+   3. PAGE-SPECIFIC INLINE STYLES (extracted from PHP)
+   -------------------------------------------------------------------------- */
 @import '../styles/dashboard.css';
+@import '../styles/gaming.css';
+@import '../styles/staking.css';
+@import '../styles/arena.css';
+@import '../styles/shop.css';
+@import '../styles/profile.css';
+@import '../styles/defi.css';
+@import '../styles/developer.css';
+@import '../styles/aster-cards.css';
 
 /* --------------------------------------------------------------------------
-   3. FONT IMPORTS
+   4. TAILWIND UTILITIES ONLY (no base reset to preserve Bootstrap)
    -------------------------------------------------------------------------- */
-
-/* Google Fonts - Inter */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
-
-/* Local Inter Variable Font */
-@font-face {
-  font-family: 'Inter var';
-  font-weight: 100 900;
-  font-display: swap;
-  font-style: normal;
-  font-named-instance: 'Regular';
-  src: url('/assets/fonts/inter/Inter-roman.var32a8.woff2') format('woff2');
-}
-
-@font-face {
-  font-family: 'Inter var';
-  font-weight: 100 900;
-  font-display: swap;
-  font-style: italic;
-  font-named-instance: 'Italic';
-  src: url('/assets/fonts/inter/Inter-italic.var32a8.woff2') format('woff2');
-}
+@tailwind utilities;
 
 /* --------------------------------------------------------------------------
-   4. CSS CUSTOM PROPERTIES (DESIGN TOKENS)
+   5. DARK THEME OVERRIDES
    -------------------------------------------------------------------------- */
-:root {
-  /* --- Aster Brand Colors --- */
-  --aster-cyan: #00f3ff;
-  --aster-blue: #3b82f6;
-  --aster-gold: #f59e0b;
-  --aster-deep: #020617;
-  --aster-purple: #a855f7;
-
-  /* --- Glass Variables --- */
-  --glass-bg-base: rgba(15, 23, 42, 0.60);
-  --glass-bg-card: rgba(30, 41, 59, 0.45);
-  --glass-bg-hover: rgba(51, 65, 85, 0.50);
-  --glass-border: rgba(255, 255, 255, 0.08);
-  --glass-border-light: rgba(255, 255, 255, 0.15);
-  --glass-blur: 12px;
-  --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-
-  /* --- Transitions --- */
-  --glass-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-
-  /* --- Text Colors --- */
-  --text-primary: #f8fafc;
-  --text-secondary: #cbd5e1;
-  --text-muted: #94a3b8;
-
-  /* --- Background Animated BG --- */
-  --ab-black: #05060a;
+:root,
+[data-bs-theme="dark"] {
+  --bs-body-bg: #0B1020;
+  --bs-body-color: #f8fafc;
+  --pc-sidebar-background: #0f172a;
+  --pc-header-background: rgba(15, 23, 42, 0.85);
 }
 
-/* --------------------------------------------------------------------------
-   5. BASE STYLES
-   -------------------------------------------------------------------------- */
-@layer base {
-  html {
-    scroll-behavior: smooth;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+/* Force dark mode background */
+html, body {
+  background: linear-gradient(180deg, #070A14, #0B1020) !important;
+  min-height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto !important;
+}
+
+/* Ensure page can scroll */
+html {
+  height: auto !important;
+}
+
+body {
+  height: auto !important;
+  position: relative;
+}
+
+/* Fix sidebar visibility */
+.pc-sidebar {
+  background: rgba(15, 23, 42, 0.95) !important;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-right: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Fix header visibility */
+.pc-header {
+  background: rgba(15, 23, 42, 0.85) !important;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Ensure content area has proper spacing for sidebar */
+.pc-container {
+  margin-left: 280px;
+  min-height: 100vh;
+}
+
+.pc-content {
+  padding: 90px 30px 30px 30px;
+}
+
+/* Sidebar responsive */
+@media (max-width: 1024px) {
+  .pc-container {
+    margin-left: 0;
   }
 
-  body {
-    font-family: 'Inter var', 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-    color: var(--text-primary);
-    min-height: 100vh;
-
-    /* Deep Space Background with Radial Gradients */
-    background:
-      radial-gradient(1200px 900px at 12% 15%, rgba(34, 211, 238, 0.10), transparent 58%),
-      radial-gradient(900px 650px at 82% 24%, rgba(122, 166, 255, 0.12), transparent 60%),
-      radial-gradient(900px 700px at 55% 88%, rgba(245, 158, 11, 0.08), transparent 60%),
-      linear-gradient(180deg, #070A14, #0B1020);
-    background-attachment: fixed;
+  .pc-sidebar {
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
   }
 
-  /* Heading defaults */
-  h1, h2, h3, h4, h5, h6,
-  .h1, .h2, .h3, .h4, .h5, .h6 {
-    color: var(--text-primary);
-    font-weight: 600;
-  }
-
-  /* Link defaults */
-  a {
-    color: var(--aster-cyan);
-    text-decoration: none;
-    transition: var(--glass-transition);
-  }
-
-  a:hover {
-    color: var(--aster-blue);
-  }
-
-  /* Selection */
-  ::selection {
-    background: rgba(0, 243, 255, 0.3);
-    color: var(--text-primary);
+  .pc-sidebar.mob-sidebar-active {
+    transform: translateX(0);
   }
 }
 
 /* --------------------------------------------------------------------------
-   6. GLASS UTILITY COMPONENTS
+   6. SHOOTING STARS ANIMATION
    -------------------------------------------------------------------------- */
-@layer components {
-  /* Glass Panel - Base container */
-  .glass-panel {
-    background: var(--glass-bg-card);
-    backdrop-filter: blur(var(--glass-blur));
-    -webkit-backdrop-filter: blur(var(--glass-blur));
-    border: 1px solid var(--glass-border);
-    box-shadow: var(--glass-shadow);
-    border-radius: 16px;
-    transition: var(--glass-transition);
-  }
-
-  .glass-panel:hover {
-    border-color: var(--glass-border-light);
-    background: var(--glass-bg-hover);
-  }
-
-  /* Glass Card - Elevated card component */
-  .glass-card {
-    background: var(--glass-bg-card);
-    backdrop-filter: blur(var(--glass-blur));
-    -webkit-backdrop-filter: blur(var(--glass-blur));
-    border: 1px solid var(--glass-border);
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    border-radius: 16px;
-    transition: var(--glass-transition);
-    overflow: hidden;
-  }
-
-  .glass-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.1);
-    border-color: var(--glass-border-light);
-    background: var(--glass-bg-hover);
-  }
-
-  /* Button Cyber - Gradient primary button */
-  .btn-cyber {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0.75rem 1.5rem;
-    font-weight: 600;
-    font-size: 0.875rem;
-    letter-spacing: 0.5px;
-    color: var(--aster-deep);
-    background: linear-gradient(135deg, var(--aster-cyan) 0%, var(--aster-blue) 100%);
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: var(--glass-transition);
-    box-shadow: 0 4px 15px rgba(0, 243, 255, 0.3);
-    backdrop-filter: blur(4px);
-  }
-
-  .btn-cyber:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0, 243, 255, 0.5);
-  }
-
-  .btn-cyber:active {
-    transform: translateY(0);
-    box-shadow: 0 2px 10px rgba(0, 243, 255, 0.3);
-  }
-
-  .btn-cyber:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-    transform: none;
-  }
-
-  /* Button Aster - Gold/premium variant */
-  .btn-aster {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0.75rem 1.5rem;
-    font-weight: 600;
-    font-size: 0.875rem;
-    letter-spacing: 0.5px;
-    color: var(--aster-deep);
-    background: linear-gradient(135deg, var(--aster-gold) 0%, #fbbf24 50%, var(--aster-gold) 100%);
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: var(--glass-transition);
-    box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
-    backdrop-filter: blur(4px);
-  }
-
-  .btn-aster:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(245, 158, 11, 0.5);
-  }
-
-  .btn-aster:active {
-    transform: translateY(0);
-    box-shadow: 0 2px 10px rgba(245, 158, 11, 0.3);
-  }
-
-  .btn-aster:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-    transform: none;
-  }
-
-  /* Ghost Button - Transparent with border */
-  .btn-ghost {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0.75rem 1.5rem;
-    font-weight: 500;
-    font-size: 0.875rem;
-    color: var(--text-primary);
-    background: transparent;
-    border: 1px solid var(--glass-border-light);
-    border-radius: 8px;
-    cursor: pointer;
-    transition: var(--glass-transition);
-    backdrop-filter: blur(4px);
-  }
-
-  .btn-ghost:hover {
-    background: var(--glass-bg-hover);
-    border-color: var(--aster-cyan);
-    color: var(--aster-cyan);
-  }
-
-  /* Glass Input */
-  .glass-input {
-    width: 100%;
-    padding: 0.75rem 1rem;
-    font-size: 0.875rem;
-    color: var(--text-primary);
-    background: rgba(0, 0, 0, 0.2);
-    border: 1px solid var(--glass-border);
-    border-radius: 8px;
-    backdrop-filter: blur(4px);
-    transition: var(--glass-transition);
-  }
-
-  .glass-input::placeholder {
-    color: var(--text-muted);
-  }
-
-  .glass-input:focus {
-    outline: none;
-    background: rgba(0, 0, 0, 0.3);
-    border-color: var(--aster-cyan);
-    box-shadow: 0 0 0 4px rgba(0, 243, 255, 0.1);
-  }
-
-  /* Animated Background Container */
-  .asterbook-animated-bg {
-    position: fixed;
-    inset: 0;
-    z-index: -1;
-    pointer-events: none;
-    overflow: hidden;
-    background:
-      radial-gradient(1200px 900px at 12% 15%, rgba(34, 211, 238, 0.10), transparent 58%),
-      radial-gradient(900px 650px at 82% 24%, rgba(122, 166, 255, 0.12), transparent 60%),
-      radial-gradient(900px 700px at 55% 88%, rgba(245, 158, 11, 0.08), transparent 60%),
-      linear-gradient(180deg, #070A14, #0B1020);
-  }
+.night-sky-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
 }
 
-/* --------------------------------------------------------------------------
-   7. ANIMATION KEYFRAMES
-   -------------------------------------------------------------------------- */
-@keyframes abStars {
+.star {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: white;
+  border-radius: 50%;
+  animation: shootingstar 6s linear infinite;
+  opacity: 0;
+}
+
+.star:nth-child(1) { top: 20%; left: 10%; animation-delay: 0s; }
+.star:nth-child(2) { top: 40%; left: 30%; animation-delay: 1.5s; }
+.star:nth-child(3) { top: 10%; left: 50%; animation-delay: 3s; }
+.star:nth-child(4) { top: 60%; left: 70%; animation-delay: 4.5s; }
+
+@keyframes shootingstar {
   0% {
-    opacity: 0.05;
-    transform: translate3d(-6px, 4px, 0);
-  }
-  45% {
-    opacity: 0.11;
-    transform: translate3d(8px, -6px, 0);
-  }
-  100% {
-    opacity: 0.06;
-    transform: translate3d(-4px, 8px, 0);
-  }
-}
-
-@keyframes abNebula {
-  0% {
-    opacity: 0.30;
-    transform: translate3d(-2%, -1%, 0) rotate(-2deg) scale(1.04);
-  }
-  50% {
-    opacity: 0.42;
-    transform: translate3d(2%, 1%, 0) rotate(3deg) scale(1.08);
-  }
-  100% {
-    opacity: 0.34;
-    transform: translate3d(-1%, 2%, 0) rotate(6deg) scale(1.06);
-  }
-}
-
-/* Glow pulse animation */
-@keyframes glowPulse {
-  0%, 100% {
-    box-shadow: 0 0 20px rgba(0, 243, 255, 0.3);
-  }
-  50% {
-    box-shadow: 0 0 40px rgba(0, 243, 255, 0.6);
-  }
-}
-
-/* Shimmer effect for premium elements */
-@keyframes shimmer {
-  0% {
-    background-position: -200% center;
-  }
-  100% {
-    background-position: 200% center;
-  }
-}
-
-/* Fade in animation */
-@keyframes fadeIn {
-  from {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateX(0) translateY(0);
   }
-  to {
+  10% {
     opacity: 1;
-    transform: translateY(0);
   }
-}
-
-/* Slide up animation */
-@keyframes slideUp {
-  from {
+  90% {
+    opacity: 1;
+  }
+  100% {
     opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+    transform: translateX(300px) translateY(300px);
   }
 }
 
 /* --------------------------------------------------------------------------
-   8. UTILITY CLASSES
-   -------------------------------------------------------------------------- */
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
-
-  /* Text gradient utilities */
-  .text-gradient-cyber {
-    background: linear-gradient(135deg, var(--aster-cyan) 0%, var(--aster-blue) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  .text-gradient-gold {
-    background: linear-gradient(135deg, var(--aster-gold) 0%, #fbbf24 50%, var(--aster-gold) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  /* Glow effects */
-  .glow-cyan {
-    box-shadow: 0 0 20px rgba(0, 243, 255, 0.4);
-  }
-
-  .glow-gold {
-    box-shadow: 0 0 20px rgba(245, 158, 11, 0.4);
-  }
-
-  .glow-pulse {
-    animation: glowPulse 2s ease-in-out infinite;
-  }
-
-  /* Animation utilities */
-  .animate-fade-in {
-    animation: fadeIn 0.5s ease-out forwards;
-  }
-
-  .animate-slide-up {
-    animation: slideUp 0.5s ease-out forwards;
-  }
-
-  .animate-shimmer {
-    background-size: 200% auto;
-    animation: shimmer 3s linear infinite;
-  }
-
-  /* Border gradient */
-  .border-gradient-cyber {
-    border-image: linear-gradient(135deg, var(--aster-cyan), var(--aster-blue)) 1;
-  }
-}
-
-/* --------------------------------------------------------------------------
-   9. ACCESSIBILITY & REDUCED MOTION
-   -------------------------------------------------------------------------- */
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
-
-  .glass-card:hover,
-  .btn-cyber:hover,
-  .btn-aster:hover {
-    transform: none !important;
-  }
-}
-
-/* --------------------------------------------------------------------------
-   10. RESPONSIVE ADJUSTMENTS
-   -------------------------------------------------------------------------- */
-@media (max-width: 768px) {
-  :root {
-    --glass-blur: 8px;
-  }
-
-  .glass-card:hover {
-    transform: none;
-  }
-}
-
-/* --------------------------------------------------------------------------
-   11. SCROLLBAR STYLING
+   7. SCROLLBAR STYLING
    -------------------------------------------------------------------------- */
 ::-webkit-scrollbar {
   width: 8px;
@@ -496,16 +179,46 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--glass-border-light);
+  background: rgba(255, 255, 255, 0.15);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--aster-cyan);
+  background: rgba(0, 243, 255, 0.4);
 }
 
 /* Firefox scrollbar */
 * {
   scrollbar-width: thin;
-  scrollbar-color: var(--glass-border-light) rgba(15, 23, 42, 0.5);
+  scrollbar-color: rgba(255, 255, 255, 0.15) rgba(15, 23, 42, 0.5);
+}
+
+/* --------------------------------------------------------------------------
+   8. UTILITY OVERRIDES
+   -------------------------------------------------------------------------- */
+/* Ensure cards have proper glass effect */
+.card {
+  background: rgba(15, 23, 42, 0.6) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+/* Text colors */
+.text-muted {
+  color: #94a3b8 !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #f8fafc;
+}
+
+/* Links */
+a {
+  color: #00f3ff;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #3b82f6;
 }

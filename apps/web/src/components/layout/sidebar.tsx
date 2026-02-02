@@ -19,6 +19,20 @@ export function Sidebar({ isPremium = false }: SidebarProps) {
   return (
     <nav className="pc-sidebar">
       <div className="navbar-wrapper">
+        {/* Logo Header */}
+        <div className="m-header">
+          <Link href="/dashboard" className="b-brand text-primary">
+            <Image
+              src="/assets/images/logo.png"
+              alt="logo"
+              width={35}
+              height={35}
+              className="logo-lg landing-logo"
+            />
+            <span className="badge bg-success rounded-pill ms-2 theme-version">v2.31.8</span>
+          </Link>
+        </div>
+
         <div className="navbar-content">
           <ul className="pc-navbar">
             <br />
@@ -43,7 +57,7 @@ export function Sidebar({ isPremium = false }: SidebarProps) {
 
                 <li className={`pc-item premium-item ${isActive('/whale-radar') ? 'active' : ''}`}>
                   <Link href="/whale-radar" className="pc-link">
-                    <span className="pc-micon"><i className="ti ti-radar"></i></span>
+                    <span className="pc-micon"><i className="ti ti-chart-radar"></i></span>
                     <span className="pc-mtext">Live Whale Radar</span>
                   </Link>
                 </li>
@@ -57,7 +71,7 @@ export function Sidebar({ isPremium = false }: SidebarProps) {
 
                 <li className={`pc-item premium-item ${isActive('/intelligence') ? 'active' : ''}`}>
                   <Link href="/intelligence" className="pc-link">
-                    <span className="pc-micon"><i className="ti ti-brain"></i></span>
+                    <span className="pc-micon"><i className="ti ti-bulb"></i></span>
                     <span className="pc-mtext">Intelligence</span>
                   </Link>
                 </li>
@@ -92,7 +106,7 @@ export function Sidebar({ isPremium = false }: SidebarProps) {
 
             <li className={`pc-item ${isActive('/gaming') ? 'active' : ''}`}>
               <Link href="/gaming" className="pc-link">
-                <span className="pc-micon"><i className="ti ti-device-gamepad-2"></i></span>
+                <span className="pc-micon"><i className="ti ti-device-gamepad"></i></span>
                 <span className="pc-mtext">Gaming</span>
               </Link>
             </li>
@@ -113,7 +127,7 @@ export function Sidebar({ isPremium = false }: SidebarProps) {
 
             <li className={`pc-item ${isActive('/bridge') ? 'active' : ''}`}>
               <Link href="/bridge" className="pc-link">
-                <span className="pc-micon"><i className="ti ti-transfer"></i></span>
+                <span className="pc-micon"><i className="ti ti-transfer-in"></i></span>
                 <span className="pc-mtext">Bridge</span>
               </Link>
             </li>
@@ -125,7 +139,7 @@ export function Sidebar({ isPremium = false }: SidebarProps) {
 
             <li className={`pc-item ${isActive('/buyaster') ? 'active' : ''}`}>
               <Link href="/buyaster" className="pc-link">
-                <span className="pc-micon"><i className="ti ti-shopping-bag"></i></span>
+                <span className="pc-micon"><i className="ti ti-shopping-cart"></i></span>
                 <span className="pc-mtext">Buy <b>ASTER</b></span>
               </Link>
             </li>
@@ -160,7 +174,7 @@ export function Sidebar({ isPremium = false }: SidebarProps) {
 
             <li className={`pc-item ${isActive('/clash') ? 'active' : ''}`}>
               <Link href="/clash" className="pc-link">
-                <span className="pc-micon"><i className="ti ti-sword"></i></span>
+                <span className="pc-micon"><i className="ti ti-bolt"></i></span>
                 <span className="pc-mtext">Perp Clash ⚔️</span>
               </Link>
             </li>
@@ -189,8 +203,8 @@ export function Sidebar({ isPremium = false }: SidebarProps) {
               </Link>
             </li>
 
-            <li className={`pc-item ${isActive('/marketplace') ? 'active' : ''}`}>
-              <Link href="/marketplace" className="pc-link">
+            <li className={`pc-item ${isActive('/marketplace-dapp') ? 'active' : ''}`}>
+              <Link href="/marketplace-dapp" className="pc-link">
                 <span className="pc-micon"><i className="ti ti-apps"></i></span>
                 <span className="pc-mtext">DApp Marketplace</span>
               </Link>
@@ -203,7 +217,7 @@ export function Sidebar({ isPremium = false }: SidebarProps) {
 
             <li className={`pc-item ${isActive('/arena') ? 'active' : ''}`}>
               <Link href="/arena" className="pc-link">
-                <span className="pc-micon"><i className="ti ti-swords"></i></span>
+                <span className="pc-micon"><i className="ti ti-flame"></i></span>
                 <span className="pc-mtext">Pet Arena</span>
               </Link>
             </li>
@@ -237,17 +251,6 @@ export function Sidebar({ isPremium = false }: SidebarProps) {
         </div>
       </div>
 
-      {/* Logo at bottom */}
-      <div className="text-center py-4">
-        <Image
-          src="/assets/images/logo.png"
-          alt="logo"
-          width={40}
-          height={40}
-          className="inline-block"
-        />
-        <span className="badge bg-light-success rounded-pill ms-2 theme-version">v2.31.8</span>
-      </div>
     </nav>
   );
 }

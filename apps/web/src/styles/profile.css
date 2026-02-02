@@ -1,0 +1,209 @@
+/* --- ASTERBOOK PROFILE PAGE STYLE --- */
+
+/* Profile Cover */
+.profile-cover {
+  height: 280px;
+  position: relative;
+  background: linear-gradient(45deg, #0f172a, #1e293b);
+  border-radius: 24px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.profile-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.9;
+}
+
+.profile-cover-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 0%, rgba(15, 23, 42, 0.8) 100%);
+}
+
+/* Profile Header */
+.profile-header-content {
+  position: relative;
+  margin-top: -60px;
+  padding: 0 24px;
+  z-index: 10;
+}
+
+.avatar-wrapper {
+  position: relative;
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  padding: 4px;
+  background: rgba(15, 23, 42, 0.8);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.avatar-img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #1e293b;
+}
+
+.avatar-badge {
+  position: absolute;
+  bottom: 6px;
+  right: 6px;
+  width: 32px;
+  height: 32px;
+  background: #0f172a;
+  border: 2px solid var(--bs-primary, #3b82f6);
+  color: var(--bs-primary, #3b82f6);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Profile Tabs */
+.profile-tabs {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  gap: 24px;
+  display: flex;
+}
+
+.profile-tab {
+  border: none;
+  background: transparent;
+  color: #94a3b8;
+  padding: 16px 0;
+  font-weight: 500;
+  position: relative;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.profile-tab:hover {
+  color: #fff;
+}
+
+.profile-tab.active {
+  color: #fff;
+}
+
+.profile-tab.active::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--bs-primary, #3b82f6);
+  box-shadow: 0 0 10px var(--bs-primary, #3b82f6);
+}
+
+/* Stat Items */
+.stat-item {
+  text-align: center;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.stat-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.stat-label {
+  font-size: 0.85rem;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Upload Box */
+.upload-box {
+  position: relative;
+  border: 2px dashed rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 32px;
+  text-align: center;
+  transition: all 0.2s;
+  cursor: pointer;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.upload-box:hover {
+  border-color: var(--bs-primary, #3b82f6);
+  background: rgba(59, 130, 246, 0.05);
+}
+
+.upload-box input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* Glass Form */
+.form-glass {
+  background: rgba(0, 0, 0, 0.2);
+  border-color: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+.form-glass:focus {
+  background: rgba(0, 0, 0, 0.3);
+  border-color: var(--bs-primary, #3b82f6);
+  color: #fff;
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+}
+
+/* Social Buttons */
+.social-btn {
+  width: 42px;
+  height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  color: #94a3b8;
+  transition: all 0.2s;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.social-btn:hover {
+  transform: translateY(-2px);
+  background: var(--bs-primary, #3b82f6);
+  color: #000;
+  border-color: var(--bs-primary, #3b82f6);
+}
+
+/* Border Preview */
+.border-preview-circle {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: #0f172a;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .profile-header-content {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .profile-tabs {
+    justify-content: center;
+  }
+}

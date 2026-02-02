@@ -1,0 +1,267 @@
+/* --- ASTERBOOK ARENA PAGE STYLE --- */
+:root {
+  --rarity-common: #94a3b8;
+  --rarity-rare: #3b82f6;
+  --rarity-epic: #a855f7;
+  --rarity-legendary: #eab308;
+
+  --element-fire: #ef4444;
+  --element-water: #06b6d4;
+  --element-earth: #22c55e;
+  --element-air: #f1f5f9;
+
+  --arena-bg-dark: #0f172a;
+  --arena-card-bg: rgba(30, 41, 59, 0.7);
+}
+
+.arena-page {
+  background: radial-gradient(circle at 50% 0%, #1e293b 0%, #0f172a 100%);
+  color: white;
+  font-family: 'Inter', sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  margin: 0;
+  padding: 20px;
+  overflow-x: hidden;
+}
+
+.arena-container {
+  width: 100%;
+  max-width: 500px;
+  position: relative;
+  z-index: 1;
+}
+
+.arena-glass-card {
+  background: var(--arena-card-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 32px;
+  padding: 40px 30px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.arena-glass-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(234, 179, 8, 0.1) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+.pet-visual-wrapper {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  margin: 0 auto 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pet-visual {
+  width: 100%;
+  height: 100%;
+  background: rgba(255,255,255,0.03);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 60px;
+  position: relative;
+  box-shadow: inset 0 0 30px rgba(0,0,0,0.5);
+  border: 4px solid rgba(255,255,255,0.1);
+}
+
+.arena-title {
+  margin: 10px 0 5px;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #fbbf24;
+}
+
+.arena-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.arena-stat-card {
+  background: rgba(255,255,255,0.05);
+  padding: 12px;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.arena-stat-label {
+  font-size: 0.75rem;
+  color: #94a3b8;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.arena-stat-value {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.bet-input {
+  width: 100%;
+  padding: 15px;
+  background: rgba(0,0,0,0.2);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px;
+  color: white;
+  font-size: 1.2rem;
+  text-align: center;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.bet-input:focus {
+  outline: none;
+  border-color: #fbbf24;
+}
+
+.btn-fight {
+  width: 100%;
+  padding: 16px;
+  background: linear-gradient(135deg, #eab308 0%, #ca8a04 100%);
+  border: none;
+  border-radius: 16px;
+  color: white;
+  font-weight: 800;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 0 4px 15px rgba(234, 179, 8, 0.4);
+}
+
+.btn-fight:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(234, 179, 8, 0.6);
+}
+
+.btn-fight:disabled {
+  filter: grayscale(1);
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.btn-fight.blue {
+  background: #3b82f6;
+  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+}
+
+.btn-fight.red {
+  background: #ef4444;
+  box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4);
+}
+
+.arena-back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 30px;
+  color: #94a3b8;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.2s;
+}
+
+.arena-back-link:hover { color: white; }
+
+.balance-display {
+  background: rgba(251, 191, 36, 0.1);
+  color: #fbbf24;
+  padding: 8px 16px;
+  border-radius: 20px;
+  display: inline-block;
+  margin-bottom: 20px;
+  font-weight: bold;
+  border: 1px solid rgba(251, 191, 36, 0.3);
+}
+
+/* PvP Lobby Styles */
+.pvp-section {
+  margin-top: 30px;
+}
+
+.pvp-lobby-item {
+  background: rgba(255,255,255,0.05);
+  padding: 15px;
+  border-radius: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.pvp-lobby-creator {
+  font-weight: bold;
+  color: white;
+}
+
+.pvp-lobby-bet {
+  font-size: 0.85rem;
+  color: #fbbf24;
+}
+
+.pvp-your-lobby {
+  background: #334155;
+  color: #94a3b8;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: not-allowed;
+}
+
+.pvp-join-btn {
+  background: #ef4444;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.pvp-message {
+  background: rgba(34, 197, 94, 0.2);
+  color: #4ade80;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+.pvp-empty {
+  padding: 20px;
+  background: rgba(0,0,0,0.2);
+  border-radius: 12px;
+  color: #94a3b8;
+}
+
+/* Spin animation for loading */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
