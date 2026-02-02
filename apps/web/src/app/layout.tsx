@@ -1,13 +1,16 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
 import './globals.css';
 import { Providers } from './providers';
-
-const inter = Inter({ subsets: ['latin'] });
+import { Sidebar } from '@/components/layout/sidebar';
+import { Header } from '@/components/layout/header';
 
 export const metadata: Metadata = {
   title: 'Asterbook - Gaming/DeFi Platform',
-  description: 'Play, earn, and stake with your virtual pet',
+  description: 'A simple & fluid gateway to explore the Aster Ecosystem',
+  icons: {
+    icon: '/assets/img/favicons/favicon.ico',
+    apple: '/assets/img/favicons/apple-touch-icon.png',
+  },
 };
 
 export default function RootLayout({
@@ -17,8 +20,15 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <Providers>{children}</Providers>
+      <head>
+        <link rel="stylesheet" href="/assets/fonts/tabler-icons.min.css" />
+      </head>
+      <body>
+        <Providers>
+          <Sidebar isPremium={true} />
+          <Header />
+          {children}
+        </Providers>
       </body>
     </html>
   );

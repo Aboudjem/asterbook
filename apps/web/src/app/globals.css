@@ -12,8 +12,32 @@
 /* --------------------------------------------------------------------------
    2. EXTERNAL CSS IMPORTS
    -------------------------------------------------------------------------- */
+/* Core Styles */
+@import '/assets/css/style.css';
+@import '/assets/css/style-preset.css';
 @import '/assets/css/glass-modern.css';
 @import '/assets/css/asterbook-animated-bg.css';
+
+/* Auth & Profile Styles */
+@import '/assets/css/auth-chronicle.css';
+@import '/assets/css/profile-borders.css';
+@import '/assets/css/name-effects.css';
+@import '/assets/css/profile-nova.css';
+
+/* Feature Styles */
+@import '/assets/css/aster-nebula.css';
+@import '/assets/css/seasonal-themes.css';
+@import '/assets/css/chat.css';
+@import '/assets/css/privacy-chat-v2.css';
+
+/* Fonts */
+@import '/assets/fonts/tabler-icons.min.css';
+@import '/assets/fonts/feather.css';
+@import '/assets/fonts/fontawesome.css';
+@import '/assets/fonts/phosphor/duotone/style.css';
+
+/* Dashboard Inline Styles */
+@import '../styles/dashboard.css';
 
 /* --------------------------------------------------------------------------
    3. FONT IMPORTS
